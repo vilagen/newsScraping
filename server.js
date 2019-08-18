@@ -1,7 +1,10 @@
 var express = require("express");
-var logger = require("morgan");
 var mongoose = require("mongoose");
 var cheerio = require("cheerio")
+var mongojs = require("mongojs");
+var axios = require("axios");
+
+var logger = require("morgan");
 
 var PORT = 3000;
 
@@ -10,7 +13,7 @@ var db = require("./models");
 var app = express();
 
 // Using morgan to log requests
-app.use(looger("dev"));
+app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,24 +23,21 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-app.get("/scape", function(req, res) {
+app.get("/scrape", function(req, res) {
     axios.get("https://www.nytimes.com/").then(function(response) {
         var $ = cheerio.load(response.data);
 
         // Grabbing articles 
-        $("article h2").each(function(i, element) {
+        $("article").each(function(i, element) {
 
             // starting with empty results
-            var result = {}
+            var results = {}
 
-            result.title = $(this)
-            .children("a")
-            .text()
-            result.link = $(this)
-            .children("a")
-            .attr("href")
+            results.title = $(this).find("h2").text()
+            results.link = $(this).find("a").attr("href")
 
-            db.Article.create(result)
+
+            db.Article.create(results)
             .then(function(dbArticle) {
                 //checking for results
                 console.log(dbArticle)
@@ -49,7 +49,6 @@ app.get("/scape", function(req, res) {
         res.send("Articles Retrieved")
     });
 });
-
 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT)
