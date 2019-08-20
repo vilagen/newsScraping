@@ -1,11 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
-var cheerio = require("cheerio")
-var mongojs = require("mongojs");
-var axios = require("axios");
 var exphbs = require("express-handlebars")
 var routes = require("./routes/routes")
-
 var logger = require("morgan");
 
 var PORT = 3000;
