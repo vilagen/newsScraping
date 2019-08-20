@@ -15,9 +15,9 @@ var ArticleSchema = new Schema({
 
     // store a Note Id, linking the ObjectId to the Note model
     // will populate Article with an assocaited Note
-    note: {
+    comment: {
         type: Schema.Types.ObjectId,
-        ref: "Note"
+        ref: "Comment"
     }
     
 });

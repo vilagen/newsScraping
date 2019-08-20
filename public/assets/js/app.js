@@ -4,14 +4,19 @@
 
 $.getJSON("/articles", function(data) {
     // For each one
-    for (var i = 0; i < data.length; i++) {
+    // for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>" +
-      "<button>Submit</button>" + "<textarea rows = '3' cols = '40' id = 'eText'></textarea>");
-    }
+    //   $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>" +
+    //   "<button>Submit</button>" + "<textarea rows = '3' cols = '40' id = 'eText'></textarea>");
+    // }
+
   });
 
-
+// $.getJSON("/articles", function(data) {
+//   for (var i = 0; i < data.length; i++) {
+    
+//   }
+// })
 // var request = new XMLHttpRequest();
 // request.open('GET', '/my/url', true);
 
@@ -30,3 +35,8 @@ $.getJSON("/articles", function(data) {
 // };
 
 // request.send();
+
+$(document).on("click", "#comment", function() {
+  $("#comments").empty();
+  var thisId = $(this).attr("data-id")
+})

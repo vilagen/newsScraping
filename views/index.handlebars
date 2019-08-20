@@ -5,12 +5,15 @@
     {{!-- this isn't working because I'm not returning the JSON as an object like I did with project 2
     Look at the burger homework instead. --}}
     <p>This is where the users cluster will be displayed. </p>
-    {{#each mongoHeadlines.articles}}
+    {{#each articles}}
     <br>
-    <div class="album_list card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{title}}</h5>
-            <a href = {{link}}></a>
+    <div data-id={{_id}}>
+        <a href={{link}}>{{title}}</a>
+        <p>{{comment}}</p>
+        <button id="comment">Comment</button>
+        <div id="commentInput">
+            {{!-- Textarea will appear --}}
+            {{!-- Submit button will be here --}}
         </div>
     </div>
     {{/each}}
