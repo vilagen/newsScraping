@@ -2,38 +2,29 @@
 <h4>A resource site for all of your news!</h4>
 
 <div id="articles">
-    {{!-- this isn't working because I'm not returning the JSON as an object like I did with project 2
-    Look at the burger homework instead. --}}
+
     <p>This is where the users cluster will be displayed. </p>
 
     {{#each articles}}
     <br>
     <div>
-        <a href={{link}}>{{title}}</a>
+        <a href="https://www.nytimes.com/{{link}}">{{title}}</a>
+        <p>{{summary}}</p>
+        <img src="{{image}}">
         {{#each comment}}
         <p>{{body}}</p>
         {{/each}}
-        <button class="addComment" data-id={{_id}}>Add Comment</button>
-        <div id="{{_id}}"></div>
-        {{!-- <textarea id="test1"></textarea>
-        <button data-id={{_id}} id="saveComment">Add Comment</button> --}}
+        <div>
+            <button class="deleteArticle" data-id={{_id}}>Delete Article</button>
+            <button class="addComment" data-id={{_id}}>Add Comment</button>
+            <div id="{{_id}}"></div>
+            {{!-- <textarea id="test1"></textarea>
+            <button data-id={{_id}} id="saveComment">Add Comment</button> --}}
+        </div>
     </div>
     {{/each}}
 
 
 </div>
-
-{{!-- <style>
-     #articles {
-        display: inline-block;
-        overflow: auto;
-        width: 60%;
-        height: 700px;
-      }
-      #notes {
-        float: right;
-        width: 30%;
-      }
-</style> --}}
 
 <script src="/assets/js/app.js" type="text/javascript"></script>

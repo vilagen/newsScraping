@@ -6,13 +6,21 @@ const ArticleSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
 
     link: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+    },
+
+    summary: {
+        type: String,
+    },
+
+    image: {
+        type: String,
     },
 
     // store a Note Id, linking the ObjectId to the Note model

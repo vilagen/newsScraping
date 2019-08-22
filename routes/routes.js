@@ -1,15 +1,15 @@
-var express = require("express")
-var router = express.Router()
-var axios = require("axios");
-var cheerio = require("cheerio")
-var mongojs = require("mongojs");
-var db = require("../models")
-var mongoose = require("mongoose");
+const express = require("express")
+const router = express.Router()
+const axios = require("axios");
+const cheerio = require("cheerio")
+const mongojs = require("mongojs");
+const db = require("../models")
+const mongoose = require("mongoose");
 
-var databaseUrl = "mongoHeadlines";
-var collections = ["Articles"];
+const databaseUrl = "mongoHeadlines";
+const collections = ["Articles"];
 
-var mongoDB = mongojs(databaseUrl, collections);
+const mongoDB = mongojs(databaseUrl, collections);
 mongoDB.on("error", function(error) {
   console.log("Database Error:", error);
 });
@@ -26,25 +26,27 @@ router.get("/", function(req, res) {
     })
 }) 
 
-router.get("/scrape", function(req, res) {
+router.get("/scrape", (req, res) => {
   axios.get("https://www.nytimes.com/").then(function(response) {
-      var $ = cheerio.load(response.data);
+      let $ = cheerio.load(response.data);
 
       // Grabbing articles 
       $("article").each(function(i, element) {
 
           // starting with empty results
-          var results = {}
+          let results = {}
 
           results.title = $(this).find("h2").text()
           results.link = $(this).find("a").attr("href")
+          results.summary = ($(this).find("li").text() || $(this).find("p").text())
+          results.image = $(this).find("img").attr("src")
 
           db.Article.create(results)
-          .then(function(dbArticle) {
+          .then((dbArticle) => {
               //checking for results
               console.log(dbArticle)
           })
-          .catch(function(err){
+          .catch((err) => {
               if (err) throw "Error creating articles. " + err;
           })
       });
@@ -75,6 +77,16 @@ router.post("/articles/:id", function(req, res) {
     .then(function(dbComment) {
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
     })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+router.delete("/articles/:id", (req, res) => {
+  db.Article.findOneAndDelete({ _id: req.params.id })
     .then(function(dbArticle) {
       res.json(dbArticle);
     })
