@@ -5,18 +5,22 @@
     {{!-- this isn't working because I'm not returning the JSON as an object like I did with project 2
     Look at the burger homework instead. --}}
     <p>This is where the users cluster will be displayed. </p>
+
     {{#each articles}}
     <br>
-    <div data-id={{_id}}>
+    <div>
         <a href={{link}}>{{title}}</a>
-        <p>{{comment}}</p>
-        <button id="addComment">Add Comment</button>
-        <div id="comments">
-            {{!-- Textarea will appear --}}
-            {{!-- Submit button will be here --}}
-        </div>
+        {{#each comment}}
+        <p>{{body}}</p>
+        {{/each}}
+        <button class="addComment" data-id={{_id}}>Add Comment</button>
+        <div id="{{_id}}"></div>
+        {{!-- <textarea id="test1"></textarea>
+        <button data-id={{_id}} id="saveComment">Add Comment</button> --}}
     </div>
     {{/each}}
+
+
 </div>
 
 {{!-- <style>
