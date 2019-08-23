@@ -27,6 +27,12 @@ $(document).on("click", ".commentSave", function() {
     url:"/articles/" + thisId,
     data: {
       body: $(`#comment_${thisId}`).val().trim()
+    },
+    error: (error) => {
+      if (error) throw "Error deleting article " + error;
+    },
+    success: (data) => {
+      $(`#container_${thisId}`).html(data);
     }
   }).then((data) => {
     console.log(data);
@@ -38,6 +44,13 @@ $(document).on("click", ".deleteArticle", function() {
   $.ajax({
     method:"DELETE",
     url:"/articles/" + thisId,
+    datatype: "html",
+    error: (error) => {
+      if (error) throw "Error deleting article " + error;
+    },
+    success: (data) => {
+      $(`#container_${thisId}`).html(data);
+    }
   }).then((data) => {
     console.log(data)
   })
