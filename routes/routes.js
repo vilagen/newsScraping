@@ -55,11 +55,15 @@ router.get("/scrape", (req, res) => {
 });
 
 router.get("/articles", function(req, res) {
-  mongoDB.articles.find(function(err, dbArticle){
-    if (err) throw "Can't retrieve info from db. " + err
-    res.json(dbArticle)
-  })
-})
+  db.Article.find({})
+    .populate("comment")
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
 
 router.get("/articles/:id", function(req, res) {
     db.Article.findOne({ _id: req.params.id })

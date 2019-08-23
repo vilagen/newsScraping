@@ -20,19 +20,40 @@ $(document).on("click", ".addComment", function() {
   })
 })
 
+$(document).on("click", "#scrubArticles", () => {
+    $.get("/scrape", (data) => {
+    alert("Data Scrubbed!")
+    location.reload()
+  })
+})
+
+
+// $(document).on("click", ".commentSave", function() {
+//   let thisId = $(this).attr("data-id");
+//   let comment = $(`#comment_${thisId}`).val().trim()
+//     $.post(`/articles/${thisId}`, comment, (data) => {
+//       $(`#showComment_${thisId}`).text(data.comment.body)
+//     })
+// })
+
 $(document).on("click", ".commentSave", function() {
   let thisId = $(this).attr("data-id");
+  let body = $(`#comment_${thisId}`).val().trim()
+
+  // updating information to database
   $.ajax({
     method:"POST",
     url:"/articles/" + thisId,
+    datatype: "html",
     data: {
-      body: $(`#comment_${thisId}`).val().trim()
+      body: body
     },
     error: (error) => {
       if (error) throw "Error deleting article " + error;
     },
     success: (data) => {
-      $(`#container_${thisId}`).html(data);
+      console.log(data._id)
+      location.reload()
     }
   }).then((data) => {
     console.log(data);

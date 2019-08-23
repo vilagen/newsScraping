@@ -3,23 +3,25 @@
 
 <div id="articles">
 
+    <button id="scrubArticles">Scrub!</button>
     <p>This is where the users cluster will be displayed. </p>
 
     {{#each articles}}
     <br>
-    <div id="container_{{_id}}">
+    <div class="border" id="container_{{_id}}">
         <a href="https://www.nytimes.com/{{link}}">{{title}}</a>
         <p>{{summary}}</p>
         <img src="{{image}}">
         {{#each comment}}
-        <p>{{body}}</p>
+        <p id="showComment_{{_id}}">{{body}}</p>
         {{/each}}
         <div>
             <button class="deleteArticle" data-id={{_id}}>Delete Article</button>
             <button class="addComment" data-id={{_id}}>Add Comment</button>
-            <div id="{{_id}}"></div>
-            {{!-- <textarea id="test1"></textarea>
-            <button data-id={{_id}} id="saveComment">Add Comment</button> --}}
+                <div id="{{_id}}">
+                {{!-- <textarea id="test1"></textarea>
+                <button data-id={{_id}} id="saveComment">Add Comment</button> --}}
+                </div>
         </div>
     </div>
     {{/each}}
