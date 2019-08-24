@@ -89,6 +89,16 @@ router.post("/articles/:id", function(req, res) {
     });
 });
 
+// router.put("/articles/:id", function(req, res) {
+//  db.Article.update({ comment: req.params._id }, {comment: req.body.body })
+//     .then(function(dbArticle) {
+//       res.json(dbArticle);
+//     })
+//     .catch(function(err) {
+//       res.json(err);
+//     });
+// })
+
 router.delete("/articles/:id", (req, res) => {
   db.Article.findOneAndDelete({ _id: req.params.id })
     .then(function(dbArticle) {

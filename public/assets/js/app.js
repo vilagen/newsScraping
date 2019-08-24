@@ -1,7 +1,6 @@
 $(document).on("click", ".addComment", function() {
   let thisId = $(this).attr("data-id");
   $(`#${thisId}`).empty()
-  console.log(thisId)
 
   $.ajax({
     method: "GET",
@@ -9,10 +8,11 @@ $(document).on("click", ".addComment", function() {
   })
     .then((data) => {
       console.log(data)
-      commentText = $(`<textarea id='comment_${thisId}' name='body'></textarea>`)
-      commentSave = $(`<button class='commentSave' data-id= '${thisId}' name='submit'>Save Comment</button>`)
+      
+      commentText = $(`<div class="input-group my-3"><div class="input-group-prepend"></div><textarea class="form-control" id=comment_${thisId} aria-label="With textarea"></textarea></div>`)
+      commentSave = $(`<button class='btn btn-primary m-2 text-center commentSave' data-id= '${thisId}' name='submit'>Save Comment</button>`)
       // clear textarea
-      commentClear = $(`<button class='commentClear' data-id= '${thisId}' name='submit'>Clear Comment</button>`)
+      commentClear = $(`<button class='btn btn-primary m-2 text-center commentClear' data-id= '${thisId}' name='submit'>Clear Comment</button>`)
 
       $(`#${thisId}`).append(commentText)
       $(`#${thisId}`).append(commentSave)
@@ -27,38 +27,28 @@ $(document).on("click", "#scrubArticles", () => {
   })
 })
 
-
-// $(document).on("click", ".commentSave", function() {
-//   let thisId = $(this).attr("data-id");
-//   let comment = $(`#comment_${thisId}`).val().trim()
-//     $.post(`/articles/${thisId}`, comment, (data) => {
-//       $(`#showComment_${thisId}`).text(data.comment.body)
-//     })
-// })
-
 $(document).on("click", ".commentSave", function() {
   let thisId = $(this).attr("data-id");
-  let body = $(`#comment_${thisId}`).val().trim()
-
+  let body = $(`#comment_${thisId}`).val()
+  console.log(thisId)
+  console.log(body)
   // updating information to database
-  $.ajax({
-    method:"POST",
-    url:"/articles/" + thisId,
-    datatype: "html",
-    data: {
-      body: body
-    },
-    error: (error) => {
-      if (error) throw "Error deleting article " + error;
-    },
-    success: (data) => {
-      console.log(data._id)
-      location.reload()
-    }
-  }).then((data) => {
-    console.log(data);
+    $.ajax({
+      method:"POST",
+      url:"/articles/" + thisId,
+      datatype: "html",
+      data: {
+        body: body
+      },
+      error: (error) => {
+        if (error) throw "Error deleting article " + error;
+      },
+      success: (data) => {
+        $(`#showComment_${thisId}`).text(body);
+        $(`#${thisId}`).empty()
+      }
     })
-});
+})
 
 $(document).on("click", ".deleteArticle", function() {
   let thisId = $(this).attr("data-id");
@@ -70,7 +60,7 @@ $(document).on("click", ".deleteArticle", function() {
       if (error) throw "Error deleting article " + error;
     },
     success: (data) => {
-      $(`#container_${thisId}`).html(data);
+      $(`#container_${thisId}`).empty();
     }
   }).then((data) => {
     console.log(data)
@@ -81,3 +71,23 @@ $(document).on("click", ".commentClear", function() {
   let thisId = $(this).attr("data-id");
   $(`#${thisId}`).empty()
 });
+
+  // was trying to only update Note if one existed instead of
+
+  // if ($(`#showComment_${thisId}`).val() === "") {
+  //   $.ajax({
+  //     method:"PUT",
+  //     url:"/articles/" + thisId,
+  //     datatype: "html",
+  //     data: {
+  //       body: body
+  //     },
+  //     error: (error) => {
+  //       if (error) throw "Error deleting article " + error;
+  //     },
+  //     success: (data) => {
+  //       $(`#showComment_${thisId}`).text(body);
+  //       $(`#${thisId}`).empty()
+  //     }
+  //   })
+  // } else {

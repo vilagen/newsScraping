@@ -1,0 +1,10 @@
+.image-size {
+    max-width: 300px;
+    height: auto;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
