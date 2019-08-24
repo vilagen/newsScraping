@@ -1,5 +1,7 @@
 
-<div class="container text-center">
+<body class="bgColor"></body>
+
+<div class="container text-center bg-light">
 <h1 class=>News Scrape!</h1>
 <h4 class=>A resource site for all of your news!</h4>
 <button class="btn btn-primary" id="scrubArticles">Scrub!</button>
@@ -12,11 +14,11 @@
     <div class="container col-md col-xs" id="container_{{_id}}">
         <div class="row">
             <div class="col-lg-2 col-md-0 col-sm-0 col-xs-0"></div>
-            <div class="d-flex justify-content-center col-lg-4 col-md-12-mx-auto col-sm-12-mx-auto col-xs-12-mx-auto">
+            <div class="d-flex justify-content-center col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <img class="text-center image-size" src="{{image}}">
             </div>
 
-            <div class="border align-baseline col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <div class="border bg-light align-baseline col-lg-5 col-md-12 col-sm-12 col-xs-12">
                 <a class="d-flex justify-content-center" href="https://www.nytimes.com/{{link}}">{{title}}</a>
                 <p class="d-flex justify-content-center">{{summary}}</p>
                 <p class="d-flex justify-content-center" id="showComment_{{_id}}">

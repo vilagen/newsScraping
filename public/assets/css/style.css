@@ -8,3 +8,7 @@
     align-items: center;
     justify-content: center;
   }
+
+  .bgColor {
+      background-color: darkslategray
+  }
