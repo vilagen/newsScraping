@@ -1,14 +1,14 @@
-var express = require("express");
-var mongoose = require("mongoose");
-var exphbs = require("express-handlebars")
-var routes = require("./routes/routes")
-var logger = require("morgan");
+const express = require("express");
+const mongoose = require("mongoose");
+const exphbs = require("express-handlebars")
+const routes = require("./routes/routes")
+const logger = require("morgan");
 
-var PORT = 3000;
+const PORT = 3000;
 
-var db = require("./models");
+const db = require("./models");
 
-var app = express();
+const app = express();
 
 // Using morgan to log requests
 app.use(logger("dev"));
@@ -23,7 +23,12 @@ app.use(routes)
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://user1:password123@ds143683.mlab.com:43683/heroku_q3fbmblj";
+
+mongoose.connect(
+    MONGODB_URI,
+    {useMongoClient: true});
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 

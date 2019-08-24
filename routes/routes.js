@@ -4,7 +4,6 @@ const axios = require("axios");
 const cheerio = require("cheerio")
 const mongojs = require("mongojs");
 const db = require("../models")
-const mongoose = require("mongoose");
 
 const databaseUrl = "mongoHeadlines";
 const collections = ["Articles"];
